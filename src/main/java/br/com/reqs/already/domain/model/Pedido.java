@@ -1,10 +1,28 @@
-package br.com.reqs.already.model;
+package br.com.reqs.already.domain.model;
 
+import java.util.Date;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import br.com.reqs.already.core.adapter.DateAdapter;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class Pedido {
 	
+	@XmlElement(required = true)
 	private Long id;
 	
+	@XmlElement(required = true)
 	private String nome;
+	
+	@XmlJavaTypeAdapter(DateAdapter.class)
+	@XmlElement(required = true)
+	private Date data;
 
 	public Long getId() {
 		return id;
@@ -20,6 +38,14 @@ public class Pedido {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	@Override
@@ -49,7 +75,7 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", nome=" + nome + "]";
+		return "Pedido [id=" + id + ", nome=" + nome + ", data=" + data + "]";
 	}
 	
 }
