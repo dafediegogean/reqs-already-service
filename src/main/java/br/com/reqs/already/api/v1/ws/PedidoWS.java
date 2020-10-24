@@ -1,11 +1,8 @@
 package br.com.reqs.already.api.v1.ws;
 
-import java.math.BigInteger;
 import java.util.List;
 
-import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
