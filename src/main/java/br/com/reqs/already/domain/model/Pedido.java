@@ -10,6 +10,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import br.com.reqs.already.core.adapter.DateAdapter;
 
+/**
+ * @author <a href="mailto:dafediegogean@gmail.com">Diego Gean da Fé</a>
+ * @version
+ * @since 24 de out de 2020, 15:25:10
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 public class Pedido {
