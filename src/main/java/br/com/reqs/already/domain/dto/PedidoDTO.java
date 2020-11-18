@@ -1,4 +1,4 @@
-package br.com.reqs.already.domain.model;
+package br.com.reqs.already.domain.dto;
 
 import java.util.Date;
 
@@ -11,23 +11,44 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import br.com.reqs.already.core.adapter.DateAdapter;
 
 /**
+ * POJO que representa a entidade {@link Pedido}. DTO para uso
+ * no WS.
+ * 
  * @author <a href="mailto:dafediegogean@gmail.com">Diego Gean da Fé</a>
  * @version
  * @since 24 de out de 2020, 15:25:10
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
-public class Pedido {
+public class PedidoDTO {
 	
-	@XmlElement(required = true)
+	@XmlElement(required = false)
 	private Long id;
 	
 	@XmlElement(required = true)
-	private String nome;
+	private String descricao;
+	
+	@XmlElement
+	private ProdutoDTO produtoDTO;
 	
 	@XmlJavaTypeAdapter(DateAdapter.class)
 	@XmlElement(required = true)
-	private Date data;
+	private Date dataCompra;
+	
+	@XmlElement(required = true)
+	private Integer quantidade;
+
+	public PedidoDTO() {
+		
+	}
+
+	public PedidoDTO(Long id, String descricao, ProdutoDTO produtoDTO, Date dataCompra, Integer quantidade) {
+		this.id = id;
+		this.descricao = descricao;
+		this.produtoDTO = produtoDTO;
+		this.dataCompra = dataCompra;
+		this.quantidade = quantidade;
+	}
 
 	public Long getId() {
 		return id;
@@ -37,50 +58,36 @@ public class Pedido {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public Date getData() {
-		return data;
+	public ProdutoDTO getProdutoDTO() {
+		return produtoDTO;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setProdutoDTO(ProdutoDTO produtoDTO) {
+		this.produtoDTO = produtoDTO;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public Date getDataCompra() {
+		return dataCompra;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Pedido other = (Pedido) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public void setDataCompra(Date dataCompra) {
+		this.dataCompra = dataCompra;
 	}
 
-	@Override
-	public String toString() {
-		return "Pedido [id=" + id + ", nome=" + nome + ", data=" + data + "]";
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 	
 }

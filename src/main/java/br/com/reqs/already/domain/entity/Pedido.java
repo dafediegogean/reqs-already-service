@@ -1,20 +1,45 @@
 package br.com.reqs.already.domain.entity;
 
+import java.time.LocalDate;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Entidade que representa o pedido. POJO que atende a tabela no banco
+ * de dados Oracle TB_PEDIDO.
+ * 
+ * @author <a href="mailto:dafediegogean@gmail.com">Diego Gean da Fé</a>
+ * @version
+ * @since 24 de out de 2020, 15:25:10
+ */
 @Entity
-@Table(name = "pedido")
+@Table(name = "TB_PEDIDO")
 public class Pedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
 	
+	@Column(name = "descricao")
 	private String descricao;
+	
+	@ManyToOne
+	@JoinColumn(name = "produto_id")
+	private Produto produto;
+
+	@Column(name = "data_compra")
+	private LocalDate dataCompra;
+	
+	@Column(name = "quantidade")
+	private Integer quantidade;
 
 	public Long getId() {
 		return id;
@@ -30,6 +55,30 @@ public class Pedido {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public LocalDate getDataCompra() {
+		return dataCompra;
+	}
+
+	public void setDataCompra(LocalDate dataCompra) {
+		this.dataCompra = dataCompra;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	@Override
@@ -59,7 +108,8 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", descricao=" + descricao + "]";
+		return "Pedido [id=" + id + ", descricao=" + descricao + ", produto=" + produto + ", dataCompra=" + dataCompra
+				+ ", quantidade=" + quantidade + "]";
 	}
 	
 }
