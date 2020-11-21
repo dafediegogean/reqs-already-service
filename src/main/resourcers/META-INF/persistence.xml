@@ -6,6 +6,7 @@
 	<persistence-unit name="reqs-already-service">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>java:jboss/datasources/ReqsAlreadyDS</jta-data-source>
+		<class>br.com.reqs.already.domain.entity.Produto</class>
 		<class>br.com.reqs.already.domain.entity.Pedido</class>
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value="none"/>
