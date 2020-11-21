@@ -21,13 +21,13 @@ import br.com.reqs.already.domain.entity.Produto;
 @XmlRootElement
 public class ProdutoDTO {
 	
-	@XmlElement(required = false)
+	@XmlElement(required = true)
 	private Long id;
 	
-	@XmlElement(required = false)
+	@XmlElement(required = true)
 	private String nome;
 	
-	@XmlElement(required = false)
+	@XmlElement(required = true)
 	private BigDecimal valor;
 
 	public Long getId() {

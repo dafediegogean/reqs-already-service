@@ -28,7 +28,7 @@ public class PedidoDTO {
 	@XmlElement(required = true)
 	private String descricao;
 	
-	@XmlElement
+	@XmlElement(required = true)
 	private ProdutoDTO produtoDTO;
 	
 	@XmlJavaTypeAdapter(DateAdapter.class)
