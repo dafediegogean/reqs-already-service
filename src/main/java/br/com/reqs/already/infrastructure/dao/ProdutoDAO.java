@@ -5,6 +5,11 @@ import javax.inject.Named;
 import br.com.reqs.already.core.jpa.AbstractJPA;
 import br.com.reqs.already.domain.dto.ProdutoDTO;
 
+/**
+ * 
+ * @author diego
+ *
+ */
 @Named
 public class ProdutoDAO extends AbstractJPA {
 	
