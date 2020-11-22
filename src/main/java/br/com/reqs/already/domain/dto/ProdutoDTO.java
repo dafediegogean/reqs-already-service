@@ -1,3 +1,4 @@
+
 package br.com.reqs.already.domain.dto;
 
 import java.math.BigDecimal;
