@@ -11,8 +11,8 @@ import br.com.reqs.already.domain.dto.ProdutoDTO;
 import br.com.reqs.already.infrastructure.service.ProdutoService;
 
 /**
- * Classe de exposição de WebService, e das demais operations para
- * buscar, criar, atualizar e remover de Produto.
+ * WebService que atende a demais operations para buscar, criar, atualizar 
+ * e remover ao produto.
  * 
  * @author <a href="mailto:dafediegogean@gmail.com">Diego Gean da Fé</a>
  * @version
@@ -34,7 +34,6 @@ public class ProdutoWS {
 	@WebMethod(operationName = "getProduto")
 	@WebResult(name = "produto")
 	public ProdutoDTO getProduto(@WebParam(name = "id") @XmlElement(required = true) Long id) {
-		produtoService.getProduto(id);
-		return null;
+		return produtoService.getProdutoById(id);
 	}
 }
