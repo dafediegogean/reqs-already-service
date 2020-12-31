@@ -9,8 +9,8 @@ import javax.xml.bind.annotation.XmlElement;
 import br.com.reqs.already.domain.dto.PedidoDTO;
 
 /**
- * Classe de exposição de WebService, e das demais operations para
- * buscar, criar, atualizar e remover de Pedidos.
+ * WebService que atende a demais operations para buscar, criar, atualizar 
+ * e remover ao pedido.
  * 
  * @author <a href="mailto:dafediegogean@gmail.com">Diego Gean da Fé</a>
  * @version
