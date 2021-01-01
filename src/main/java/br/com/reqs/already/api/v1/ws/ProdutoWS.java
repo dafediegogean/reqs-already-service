@@ -1,5 +1,7 @@
 package br.com.reqs.already.api.v1.ws;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -7,7 +9,11 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlElement;
 
+import br.com.reqs.already.core.exception.AuthorizationException;
+import br.com.reqs.already.core.validator.AuthorizationValidator;
+import br.com.reqs.already.domain.dto.ListaProdutoDTO;
 import br.com.reqs.already.domain.dto.ProdutoDTO;
+import br.com.reqs.already.domain.model.Token;
 import br.com.reqs.already.infrastructure.service.ProdutoService;
 
 /**
@@ -24,6 +30,20 @@ public class ProdutoWS {
 	@Inject
 	private ProdutoService produtoService;
 	
+	@WebMethod(operationName = "getAll")
+	@WebResult(name = "produtos")
+	public ListaProdutoDTO getAll(@WebParam(name = "token", header = true) Token token) {
+		boolean isAuthenticated = AuthorizationValidator.tokenValidator(token);
+		
+		if (!isAuthenticated) {
+			throw new AuthorizationException("00051", "You are not allowed to make the request");
+		}
+		
+		List<ProdutoDTO> produtos = produtoService.getAll();
+		
+		return new ListaProdutoDTO(produtos);
+	}
+	
 	/**
 	 * Método getProduto(Long id), recebe como parâmetro o id, para
 	 * buscar um produto pelo id. 
@@ -31,9 +51,15 @@ public class ProdutoWS {
 	 * @param id
 	 * @return ProdutoDTO
 	 */
-	@WebMethod(operationName = "getProduto")
+	@WebMethod(operationName = "getProdutoById")
 	@WebResult(name = "produto")
-	public ProdutoDTO getProduto(@WebParam(name = "id") @XmlElement(required = true) Long id) {
+	public ProdutoDTO getProduto(@WebParam(name = "token", header = true) Token token, 
+			@WebParam(name = "id") @XmlElement(required = true) Long id) {
+		boolean isAuthenticated = AuthorizationValidator.tokenValidator(token);
+		
+		if (!isAuthenticated) {
+			throw new AuthorizationException("00051", "You are not allowed to make the request");
+		}
 		return produtoService.getProdutoById(id);
 	}
 }
