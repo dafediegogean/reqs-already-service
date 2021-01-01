@@ -1,10 +1,16 @@
 package br.com.reqs.already.infrastructure.dao;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import br.com.reqs.already.core.jpa.AbstractJPA;
+import br.com.reqs.already.domain.dto.ProdutoDTO;
 import br.com.reqs.already.domain.entity.Produto;
 
 /**
@@ -20,6 +26,24 @@ public class ProdutoDAO extends AbstractJPA {
 	
 	@PersistenceContext
 	private EntityManager em;
+	
+	
+	public List<ProdutoDTO> findAll() {
+		Query query = em.createNativeQuery("SELECT * FROM TB_PRODUTO");
+		
+		List<Object[]> listaGenerica = query.getResultList();
+		
+		List<ProdutoDTO> listaProdutoDTO = new ArrayList<ProdutoDTO>();
+		
+		for (Object[] object : listaGenerica) {
+			ProdutoDTO produtoDto = new ProdutoDTO();
+			produtoDto.setId(Long.valueOf(object[0].toString()));
+			produtoDto.setNome(object[1].toString());
+			produtoDto.setValor(new BigDecimal(object[2].toString()));
+			listaProdutoDTO.add(produtoDto);
+		}
+		return listaProdutoDTO;
+	}
 	
 	/**
 	 * Método findById(Long id), recebe como parâmetro o id do tipo
