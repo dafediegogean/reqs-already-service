@@ -1,5 +1,7 @@
 package br.com.reqs.already.infrastructure.service;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -20,6 +22,11 @@ public class ProdutoService {
 	
 	@Inject
 	ProdutoDAO produtoDAO;
+	
+	public List<ProdutoDTO> getAll() {
+		return produtoDAO.findAll();
+	}
+	
 	/**
 	 * Método getProdutoById(Long id), recebe como parâmetro o id do tipo
 	 * java.lang.Long, e busca o produto em base de dados pelo id. Faz se
@@ -36,4 +43,5 @@ public class ProdutoService {
 		produtoDto.setValor(produto.getValor());
 		return produtoDto;
 	}
+	
 }
