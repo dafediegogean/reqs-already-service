@@ -21,8 +21,8 @@ public class PedidoWS {
 	  
 	@WebMethod(operationName = "getPedido")
 	@WebResult(name = "pedido")
-	public PedidoDTO getPedido(@WebParam(name = "id") @XmlElement(required = true ) Long id) {
-	
+	public PedidoDTO getPedido(@WebParam(name = "id") 
+		@XmlElement(required = true ) Long id) {
 		return null;
 	}
 	

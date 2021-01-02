@@ -4,6 +4,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * POJO de representavidade de tokenização, utilizado na aplicação
+ * para autorização, no escopo de segurança.
+ * 
+ * @author <a href="mailto:dafediegogean@gmail.com">Diego Gean da Fé</a>
+ * @version
+ * @since 01 de jan de 2020, 17:40:14
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Token {
 	

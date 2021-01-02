@@ -23,6 +23,12 @@ public class ProdutoService {
 	@Inject
 	ProdutoDAO produtoDAO;
 	
+	/**
+	 * Método getAll(),busca e retorna todos os produtos cadastrados 
+	 * na base de dados.
+	 * 
+	 * @return List<ProdutoDTO>
+	 */
 	public List<ProdutoDTO> getAll() {
 		return produtoDAO.findAll();
 	}

@@ -28,6 +28,12 @@ public class ProdutoDAO extends AbstractJPA {
 	private EntityManager em;
 	
 	
+	/**
+	 * Método findAll(),busca e retorna todos os produtos cadastrados 
+	 * na base de dados.
+	 * 
+	 * @return listaProdutoDTO
+	 */
 	public List<ProdutoDTO> findAll() {
 		Query query = em.createNativeQuery("SELECT * FROM TB_PRODUTO");
 		

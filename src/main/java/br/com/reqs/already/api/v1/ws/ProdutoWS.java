@@ -30,6 +30,14 @@ public class ProdutoWS {
 	@Inject
 	private ProdutoService produtoService;
 	
+	/**
+	 * Método getAll(Token token), recebe como parâmetro o token para autorização de requisição,
+	 * caso válido, busca e retorna todos os produtos cadastrados 
+	 * na base de dados.
+	 * 
+	 * @param token
+	 * @return ListaProdutoDTO
+	 */
 	@WebMethod(operationName = "getAll")
 	@WebResult(name = "produtos")
 	public ListaProdutoDTO getAll(@WebParam(name = "token", header = true) Token token) {
