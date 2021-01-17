@@ -4,6 +4,10 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.ParameterStyle;
+import javax.jws.soap.SOAPBinding.Style;
+import javax.jws.soap.SOAPBinding.Use;
 import javax.xml.bind.annotation.XmlElement;
 
 import br.com.reqs.already.domain.dto.PedidoDTO;
@@ -17,6 +21,7 @@ import br.com.reqs.already.domain.dto.PedidoDTO;
  * @since 30 de out de 2020, 21:42:10
  */
 @WebService
+@SOAPBinding(style = Style.DOCUMENT, use = Use.LITERAL, parameterStyle = ParameterStyle.WRAPPED)
 public class PedidoWS {
 	  
 	@WebMethod(operationName = "getPedido")

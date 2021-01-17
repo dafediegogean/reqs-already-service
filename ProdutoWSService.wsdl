@@ -4,10 +4,6 @@
   <types>
     <xs:schema version="1.0" targetNamespace="http://ws.v1.api.already.reqs.com.br/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-      <xs:element name="getAll" type="tns:getAll"/>
-
-      <xs:element name="getAllResponse" type="tns:getAllResponse"/>
-
       <xs:element name="getProdutoById" type="tns:getProdutoById"/>
 
       <xs:element name="getProdutoByIdResponse" type="tns:getProdutoByIdResponse"/>
@@ -16,11 +12,15 @@
 
       <xs:element name="produtoDTO" type="tns:produtoDTO"/>
 
+      <xs:element name="todosOsProdutos" type="tns:todosOsProdutos"/>
+
+      <xs:element name="todosOsProdutosResponse" type="tns:todosOsProdutosResponse"/>
+
       <xs:element name="token" nillable="true" type="tns:token"/>
 
-      <xs:complexType name="getProdutoById">
+      <xs:complexType name="todosOsProdutos">
         <xs:sequence>
-          <xs:element name="id" type="xs:long"/>
+          <xs:element name="paginacao" type="xs:boolean"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -30,9 +30,15 @@
         </xs:sequence>
       </xs:complexType>
 
-      <xs:complexType name="getProdutoByIdResponse">
+      <xs:complexType name="todosOsProdutosResponse">
         <xs:sequence>
-          <xs:element name="produto" type="tns:produtoDTO" minOccurs="0"/>
+          <xs:element name="produtos" type="tns:listaProdutoDTO" minOccurs="0"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="listaProdutoDTO">
+        <xs:sequence>
+          <xs:element name="produto" type="tns:produtoDTO" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -44,30 +50,19 @@
         </xs:sequence>
       </xs:complexType>
 
-      <xs:complexType name="getAll">
-        <xs:sequence/>
-      </xs:complexType>
-
-      <xs:complexType name="getAllResponse">
+      <xs:complexType name="getProdutoById">
         <xs:sequence>
-          <xs:element name="produtos" type="tns:listaProdutoDTO" minOccurs="0"/>
+          <xs:element name="id" type="xs:long"/>
         </xs:sequence>
       </xs:complexType>
 
-      <xs:complexType name="listaProdutoDTO">
+      <xs:complexType name="getProdutoByIdResponse">
         <xs:sequence>
-          <xs:element name="produto" type="tns:produtoDTO" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="produto" type="tns:produtoDTO" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 </xs:schema>
   </types>
-  <message name="getAll">
-    <part name="parameters" element="tns:getAll"/>
-    <part name="token" element="tns:token"/>
-  </message>
-  <message name="getAllResponse">
-    <part name="result" element="tns:getAllResponse"/>
-  </message>
   <message name="getProdutoById">
     <part name="parameters" element="tns:getProdutoById"/>
     <part name="token" element="tns:token"/>
@@ -75,33 +70,40 @@
   <message name="getProdutoByIdResponse">
     <part name="result" element="tns:getProdutoByIdResponse"/>
   </message>
+  <message name="todosOsProdutos">
+    <part name="parameters" element="tns:todosOsProdutos"/>
+    <part name="token" element="tns:token"/>
+  </message>
+  <message name="todosOsProdutosResponse">
+    <part name="result" element="tns:todosOsProdutosResponse"/>
+  </message>
   <portType name="ProdutoWS">
-    <operation name="getAll" parameterOrder="parameters token">
-      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getAllRequest" message="tns:getAll"/>
-      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getAllResponse" message="tns:getAllResponse"/>
-    </operation>
     <operation name="getProdutoById" parameterOrder="parameters token">
       <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutoByIdRequest" message="tns:getProdutoById"/>
       <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutoByIdResponse" message="tns:getProdutoByIdResponse"/>
     </operation>
+    <operation name="todosOsProdutos" parameterOrder="parameters token">
+      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/todosOsProdutosRequest" message="tns:todosOsProdutos"/>
+      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/todosOsProdutosResponse" message="tns:todosOsProdutosResponse"/>
+    </operation>
   </portType>
   <binding name="ProdutoWSPortBinding" type="tns:ProdutoWS">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-    <operation name="getAll">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal" parts="parameters"/>
-        <soap:header message="tns:getAll" part="token" use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
     <operation name="getProdutoById">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal" parts="parameters"/>
         <soap:header message="tns:getProdutoById" part="token" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="todosOsProdutos">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal" parts="parameters"/>
+        <soap:header message="tns:todosOsProdutos" part="token" use="literal"/>
       </input>
       <output>
         <soap:body use="literal"/>
