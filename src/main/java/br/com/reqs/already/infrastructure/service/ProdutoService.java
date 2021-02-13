@@ -50,4 +50,17 @@ public class ProdutoService {
 		return produtoDto;
 	}
 	
+	/**
+	 * Método salvar(ProdutoDTO produtoDTO), recebe como parâmetro objeto
+	 * do tipo produto, e persiste no banco de dados. 
+	 * 
+	 * @param produtoDTO
+	 */
+	public void salvar(ProdutoDTO produtoDTO) {
+		Produto produto = new Produto();
+		produto.setNome(produtoDTO.getNome());
+		produto.setValor(produtoDTO.getValor());
+		produtoDAO.salvar(produto);
+	}
+	
 }
