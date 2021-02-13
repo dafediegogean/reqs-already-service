@@ -35,14 +35,23 @@ public class ProdutoWS {
 	@Inject
 	private ProdutoService produtoService;
 	
+	/**
+	 * Método getAll(Token token, boolean paginacao), que recebe como parâmetro o token,
+	 * e a paginação, e lista todos os produtos cadastrados.
+	 * 
+	 * @param token
+	 * @param paginacao
+	 * @return ListaProdutoDTO
+	 * @throws AuthorizationException 
+	 */
 	@WebMethod(operationName = "todosOsProdutos")
 	@WebResult(name = "produtos")
 	public ListaProdutoDTO getAll(@WebParam(name= "token", header = true) Token token, 
-			@WebParam(name="paginacao") @XmlElement(required = false) boolean paginacao) {
+			@WebParam(name="paginacao") @XmlElement(required = false) boolean paginacao) throws AuthorizationException {
 		boolean isAuthenticated = AuthorizationValidator.tokenValidator(token);
 		
 		if (!isAuthenticated) {
-			throw new AuthorizationException("00051", "You are not allowed to make the request");
+			throw new AuthorizationException("Token inválido!");
 		}
 		
 		List<ProdutoDTO> produtos = produtoService.getAll();
@@ -53,13 +62,25 @@ public class ProdutoWS {
 	@WebMethod(operationName = "getProdutoById")
 	@WebResult(name = "produto")
 	public ProdutoDTO getProdutoById(@WebParam(name = "token", header = true) Token token, 
-			@WebParam(name = "id") @XmlElement(required = true) Long id) {
+			@WebParam(name = "id") @XmlElement(required = true) Long id) throws AuthorizationException {
 		boolean isAuthenticated = AuthorizationValidator.tokenValidator(token);
 		
 		if (!isAuthenticated) {
-			throw new AuthorizationException("00051", "You are not allowed to make the request");
+			throw new AuthorizationException("Token inválido!");
 		}
 		return produtoService.getProdutoById(id);
+	}
+	
+	@WebMethod(operationName = "criar")
+	@WebResult(name = "produto")
+	public void criar(@WebParam(name = "token", header = true) Token token,
+			@WebParam(name = "produto") @XmlElement(required = true) ProdutoDTO produtoDTO) throws AuthorizationException {
+		boolean isAuthenticated = AuthorizationValidator.tokenValidator(token);
+		
+		if (!isAuthenticated) {
+			throw new AuthorizationException("Token inválido!");
+		}
+		produtoService.salvar(produtoDTO);
 	}
 	
 }

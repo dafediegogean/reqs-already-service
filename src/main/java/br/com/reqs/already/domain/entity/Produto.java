@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
+
 /**
  * Entidade que representa o produto. POJO que atende a tabela no banco
  * de dados Oracle TB_PRODUTO.
@@ -27,6 +29,7 @@ public class Produto {
 	private Long id;
 	
 	@Column(name = "nome")
+	@Length(min = 5, max = 180)
 	private String nome;
 	
 	@Column(name = "valor")
