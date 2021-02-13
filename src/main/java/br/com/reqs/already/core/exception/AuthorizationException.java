@@ -1,5 +1,7 @@
 package br.com.reqs.already.core.exception;
 
+import javax.xml.ws.WebFault;
+
 /**
  * Classe de exceção em execução, extende {@link RuntimeException},
  * de java.lang. Recebe como parâmetro no construtor o código e mensagem
@@ -9,36 +11,20 @@ package br.com.reqs.already.core.exception;
  * @version
  * @since 01 de jan de 2021, 17:35:10
  */
-public class AuthorizationException extends RuntimeException {
+@WebFault(name = "AuthorizationFault")
+public class AuthorizationException extends Exception {
 
 	/**
 	 * Serial UID
 	 */
 	private static final long serialVersionUID = 2448934827853482181L;
 	
-	private String code;
+	public AuthorizationException(String message) {
+		super(message);
+	}
 	
-	private String message;
-
-	public AuthorizationException(String code, String message) {
-		this.code = code;
-		this.message = message;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
+	public String getFaultInfo() {
+		return "Token inválido!";
 	}
 	
 }
