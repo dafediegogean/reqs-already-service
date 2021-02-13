@@ -4,6 +4,12 @@
   <types>
     <xs:schema version="1.0" targetNamespace="http://ws.v1.api.already.reqs.com.br/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
+      <xs:element name="AuthorizationFault" nillable="true" type="xs:string"/>
+
+      <xs:element name="criar" type="tns:criar"/>
+
+      <xs:element name="criarResponse" type="tns:criarResponse"/>
+
       <xs:element name="getProdutoById" type="tns:getProdutoById"/>
 
       <xs:element name="getProdutoByIdResponse" type="tns:getProdutoByIdResponse"/>
@@ -50,6 +56,16 @@
         </xs:sequence>
       </xs:complexType>
 
+      <xs:complexType name="criar">
+        <xs:sequence>
+          <xs:element name="produto" type="tns:produtoDTO"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="criarResponse">
+        <xs:sequence/>
+      </xs:complexType>
+
       <xs:complexType name="getProdutoById">
         <xs:sequence>
           <xs:element name="id" type="xs:long"/>
@@ -63,13 +79,6 @@
       </xs:complexType>
 </xs:schema>
   </types>
-  <message name="getProdutoById">
-    <part name="parameters" element="tns:getProdutoById"/>
-    <part name="token" element="tns:token"/>
-  </message>
-  <message name="getProdutoByIdResponse">
-    <part name="result" element="tns:getProdutoByIdResponse"/>
-  </message>
   <message name="todosOsProdutos">
     <part name="parameters" element="tns:todosOsProdutos"/>
     <part name="token" element="tns:token"/>
@@ -77,28 +86,42 @@
   <message name="todosOsProdutosResponse">
     <part name="result" element="tns:todosOsProdutosResponse"/>
   </message>
+  <message name="AuthorizationException">
+    <part name="fault" element="tns:AuthorizationFault"/>
+  </message>
+  <message name="getProdutoById">
+    <part name="parameters" element="tns:getProdutoById"/>
+    <part name="token" element="tns:token"/>
+  </message>
+  <message name="getProdutoByIdResponse">
+    <part name="result" element="tns:getProdutoByIdResponse"/>
+  </message>
+  <message name="criar">
+    <part name="parameters" element="tns:criar"/>
+    <part name="token" element="tns:token"/>
+  </message>
+  <message name="criarResponse">
+    <part name="result" element="tns:criarResponse"/>
+  </message>
   <portType name="ProdutoWS">
-    <operation name="getProdutoById" parameterOrder="parameters token">
-      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutoByIdRequest" message="tns:getProdutoById"/>
-      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutoByIdResponse" message="tns:getProdutoByIdResponse"/>
-    </operation>
     <operation name="todosOsProdutos" parameterOrder="parameters token">
       <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/todosOsProdutosRequest" message="tns:todosOsProdutos"/>
       <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/todosOsProdutosResponse" message="tns:todosOsProdutosResponse"/>
+      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/todosOsProdutos/Fault/AuthorizationException"/>
+    </operation>
+    <operation name="getProdutoById" parameterOrder="parameters token">
+      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutoByIdRequest" message="tns:getProdutoById"/>
+      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutoByIdResponse" message="tns:getProdutoByIdResponse"/>
+      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutoById/Fault/AuthorizationException"/>
+    </operation>
+    <operation name="criar" parameterOrder="parameters token">
+      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/criarRequest" message="tns:criar"/>
+      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/criarResponse" message="tns:criarResponse"/>
+      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/criar/Fault/AuthorizationException"/>
     </operation>
   </portType>
   <binding name="ProdutoWSPortBinding" type="tns:ProdutoWS">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-    <operation name="getProdutoById">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal" parts="parameters"/>
-        <soap:header message="tns:getProdutoById" part="token" use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-    </operation>
     <operation name="todosOsProdutos">
       <soap:operation soapAction=""/>
       <input>
@@ -108,6 +131,35 @@
       <output>
         <soap:body use="literal"/>
       </output>
+      <fault name="AuthorizationException">
+        <soap:fault name="AuthorizationException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="getProdutoById">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal" parts="parameters"/>
+        <soap:header message="tns:getProdutoById" part="token" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="AuthorizationException">
+        <soap:fault name="AuthorizationException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="criar">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal" parts="parameters"/>
+        <soap:header message="tns:criar" part="token" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="AuthorizationException">
+        <soap:fault name="AuthorizationException" use="literal"/>
+      </fault>
     </operation>
   </binding>
   <service name="ProdutoWSService">
