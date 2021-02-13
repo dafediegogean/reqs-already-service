@@ -61,5 +61,15 @@ public class ProdutoDAO extends AbstractJPA {
 	public Produto findById(Long id) {
 		return em.find(Produto.class, id);
 	}
+
+	/**
+	 * Método salvar(ProdutoDTO produtoDTO), recebe como parâmetro objeto
+	 * do tipo produto, e persiste no banco de dados. 
+	 * 
+	 * @param produtoDTO
+	 */
+	public void salvar(Produto produto) {
+		em.persist(produto);
+	}
 	
 }
