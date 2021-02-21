@@ -36,15 +36,15 @@ public class ProdutoWS {
 	private ProdutoService produtoService;
 	
 	/**
-	 * Método getAll(Token token, boolean paginacao), que recebe como parâmetro o token,
-	 * e a paginação, e lista todos os produtos cadastrados.
+	 * Endpoint getAll, recebe como parâmetro o token no header, e um booleano, a 
+	 * paginacao. Lista todos os produtos cadastrados.
 	 * 
 	 * @param token
 	 * @param paginacao
 	 * @return ListaProdutoDTO
 	 * @throws AuthorizationException 
 	 */
-	@WebMethod(operationName = "todosOsProdutos")
+	@WebMethod(operationName = "getAll")
 	@WebResult(name = "produtos")
 	public ListaProdutoDTO getAll(@WebParam(name= "token", header = true) Token token, 
 			@WebParam(name="paginacao") @XmlElement(required = false) boolean paginacao) throws AuthorizationException {
@@ -59,6 +59,15 @@ public class ProdutoWS {
 		return new ListaProdutoDTO(produtos);
 	}
 	
+	/**
+	 * Endpoint getProdutoById, recebe como parâmetro o token no header, e o id. Busca
+	 * o produto através do id passado.
+	 * 
+	 * @param token
+	 * @param id
+	 * @return ProdutoDTO
+	 * @throws AuthorizationException
+	 */
 	@WebMethod(operationName = "getProdutoById")
 	@WebResult(name = "produto")
 	public ProdutoDTO getProdutoById(@WebParam(name = "token", header = true) Token token, 
@@ -71,6 +80,14 @@ public class ProdutoWS {
 		return produtoService.getProdutoById(id);
 	}
 	
+	/**
+	 * Endpoint criar, recebe como parâmetro o token no header, e ProdutoDTO. Cria
+	 * um novo dado de produto no banco de dados.
+	 * 
+	 * @param token
+	 * @param produtoDTO
+	 * @throws AuthorizationException
+	 */
 	@WebMethod(operationName = "criar")
 	@WebResult(name = "produto")
 	public void criar(@WebParam(name = "token", header = true) Token token,
