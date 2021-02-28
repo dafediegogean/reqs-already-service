@@ -85,7 +85,6 @@ public class ProdutoServiceImpl implements ProdutoService {
 		Produto produtoSalvo = produtoDAO.atualizar(produto);
 		produtoDTO.setNome(produtoSalvo.getNome());
 		produtoDTO.setValor(produtoSalvo.getValor());
-		
 		return produtoDTO;
 	}
 	
