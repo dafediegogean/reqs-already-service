@@ -72,4 +72,8 @@ public class ProdutoDAO extends AbstractJPA {
 		em.persist(produto);
 	}
 	
+	public Produto atualizar(Produto produto) {
+		return em.merge(produto);
+	}
+	
 }
