@@ -10,6 +10,10 @@
 
       <xs:element name="criarResponse" type="tns:criarResponse"/>
 
+      <xs:element name="getAll" type="tns:getAll"/>
+
+      <xs:element name="getAllResponse" type="tns:getAllResponse"/>
+
       <xs:element name="getProdutoById" type="tns:getProdutoById"/>
 
       <xs:element name="getProdutoByIdResponse" type="tns:getProdutoByIdResponse"/>
@@ -18,15 +22,15 @@
 
       <xs:element name="produtoDTO" type="tns:produtoDTO"/>
 
-      <xs:element name="todosOsProdutos" type="tns:todosOsProdutos"/>
+      <xs:element name="remover" type="tns:remover"/>
 
-      <xs:element name="todosOsProdutosResponse" type="tns:todosOsProdutosResponse"/>
+      <xs:element name="removerResponse" type="tns:removerResponse"/>
 
       <xs:element name="token" nillable="true" type="tns:token"/>
 
-      <xs:complexType name="todosOsProdutos">
+      <xs:complexType name="remover">
         <xs:sequence>
-          <xs:element name="paginacao" type="xs:boolean"/>
+          <xs:element name="id" type="xs:long" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -36,7 +40,17 @@
         </xs:sequence>
       </xs:complexType>
 
-      <xs:complexType name="todosOsProdutosResponse">
+      <xs:complexType name="removerResponse">
+        <xs:sequence/>
+      </xs:complexType>
+
+      <xs:complexType name="getAll">
+        <xs:sequence>
+          <xs:element name="paginacao" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="getAllResponse">
         <xs:sequence>
           <xs:element name="produtos" type="tns:listaProdutoDTO" minOccurs="0"/>
         </xs:sequence>
@@ -79,15 +93,22 @@
       </xs:complexType>
 </xs:schema>
   </types>
-  <message name="todosOsProdutos">
-    <part name="parameters" element="tns:todosOsProdutos"/>
+  <message name="getAll">
+    <part name="parameters" element="tns:getAll"/>
     <part name="token" element="tns:token"/>
   </message>
-  <message name="todosOsProdutosResponse">
-    <part name="result" element="tns:todosOsProdutosResponse"/>
+  <message name="getAllResponse">
+    <part name="result" element="tns:getAllResponse"/>
   </message>
   <message name="AuthorizationException">
     <part name="fault" element="tns:AuthorizationFault"/>
+  </message>
+  <message name="remover">
+    <part name="parameters" element="tns:remover"/>
+    <part name="token" element="tns:token"/>
+  </message>
+  <message name="removerResponse">
+    <part name="result" element="tns:removerResponse"/>
   </message>
   <message name="getProdutoById">
     <part name="parameters" element="tns:getProdutoById"/>
@@ -104,10 +125,15 @@
     <part name="result" element="tns:criarResponse"/>
   </message>
   <portType name="ProdutoWS">
-    <operation name="todosOsProdutos" parameterOrder="parameters token">
-      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/todosOsProdutosRequest" message="tns:todosOsProdutos"/>
-      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/todosOsProdutosResponse" message="tns:todosOsProdutosResponse"/>
-      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/todosOsProdutos/Fault/AuthorizationException"/>
+    <operation name="getAll" parameterOrder="parameters token">
+      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getAllRequest" message="tns:getAll"/>
+      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getAllResponse" message="tns:getAllResponse"/>
+      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getAll/Fault/AuthorizationException"/>
+    </operation>
+    <operation name="remover" parameterOrder="parameters token">
+      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/removerRequest" message="tns:remover"/>
+      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/removerResponse" message="tns:removerResponse"/>
+      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/remover/Fault/AuthorizationException"/>
     </operation>
     <operation name="getProdutoById" parameterOrder="parameters token">
       <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutoByIdRequest" message="tns:getProdutoById"/>
@@ -122,11 +148,24 @@
   </portType>
   <binding name="ProdutoWSPortBinding" type="tns:ProdutoWS">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-    <operation name="todosOsProdutos">
+    <operation name="getAll">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal" parts="parameters"/>
-        <soap:header message="tns:todosOsProdutos" part="token" use="literal"/>
+        <soap:header message="tns:getAll" part="token" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="AuthorizationException">
+        <soap:fault name="AuthorizationException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="remover">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal" parts="parameters"/>
+        <soap:header message="tns:remover" part="token" use="literal"/>
       </input>
       <output>
         <soap:body use="literal"/>
