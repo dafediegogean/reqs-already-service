@@ -47,7 +47,8 @@ public class ProdutoWS {
 	@WebMethod(operationName = "getAll")
 	@WebResult(name = "produtos")
 	public ListaProdutoDTO getAll(@WebParam(name= "token", header = true) Token token, 
-			@WebParam(name="paginacao") @XmlElement(required = false) boolean paginacao) throws AuthorizationException {
+			@WebParam(name="paginacao") @XmlElement(required = false) boolean paginacao) 
+					throws AuthorizationException {
 		boolean isAuthenticated = AuthorizationValidator.tokenValidator(token);
 		
 		if (!isAuthenticated) {
@@ -71,7 +72,8 @@ public class ProdutoWS {
 	@WebMethod(operationName = "getProdutoById")
 	@WebResult(name = "produto")
 	public ProdutoDTO getProdutoById(@WebParam(name = "token", header = true) Token token, 
-			@WebParam(name = "id") @XmlElement(required = true) Long id) throws AuthorizationException {
+			@WebParam(name = "id") @XmlElement(required = true) Long id) 
+					throws AuthorizationException {
 		boolean isAuthenticated = AuthorizationValidator.tokenValidator(token);
 		
 		if (!isAuthenticated) {
@@ -91,13 +93,33 @@ public class ProdutoWS {
 	@WebMethod(operationName = "criar")
 	@WebResult(name = "produto")
 	public void criar(@WebParam(name = "token", header = true) Token token,
-			@WebParam(name = "produto") @XmlElement(required = true) ProdutoDTO produtoDTO) throws AuthorizationException {
+			@WebParam(name = "produto") @XmlElement(required = true) ProdutoDTO produtoDTO) 
+					throws AuthorizationException {
 		boolean isAuthenticated = AuthorizationValidator.tokenValidator(token);
 		
 		if (!isAuthenticated) {
 			throw new AuthorizationException("Token inválido!");
 		}
 		produtoService.salvar(produtoDTO);
+	}
+	
+	/**
+	 * Endpoint remover, recebe como parâmetro o token no header, e o id do produto,
+	 * para remover da base de dados.
+	 * 
+	 * @param token
+	 * @param id
+	 * @throws AuthorizationException
+	 */
+	@WebMethod(operationName = "remover")
+	public void remover(@WebParam(name = "token", header = true) Token token, @WebParam(name = "id") Long id) 
+			throws AuthorizationException {
+		boolean isAuthenticated = AuthorizationValidator.tokenValidator(token);
+		
+		if (!isAuthenticated) {
+			throw new AuthorizationException("Token inválido!");
+		}
+		produtoService.excluir(id);
 	}
 	
 }
