@@ -87,5 +87,16 @@ public class ProdutoServiceImpl implements ProdutoService {
 		produtoDTO.setValor(produtoSalvo.getValor());
 		return produtoDTO;
 	}
+
+	/**
+	 * Método excluir(Long id), recebe como parâmetro o id do produto
+	 * para remover do banco de dados.
+	 * 
+	 * @param id
+	 */
+	@Override
+	public void excluir(Long id) {
+		produtoDAO.excluir(id);
+	}
 	
 }

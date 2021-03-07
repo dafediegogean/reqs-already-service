@@ -8,6 +8,7 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import br.com.reqs.already.core.jpa.AbstractJPA;
 import br.com.reqs.already.domain.dto.ProdutoDTO;
@@ -74,6 +75,18 @@ public class ProdutoDAO extends AbstractJPA {
 	
 	public Produto atualizar(Produto produto) {
 		return em.merge(produto);
+	}
+
+	/**
+	 * Método excluir(Long id), recebe como parâmetro o id do produto
+	 * para remover do banco de dados.
+	 * 
+	 * @param id
+	 */
+	@Transactional
+	public void excluir(Long id) {
+		Produto produto = em.find(Produto.class, id);
+		em.remove(produto);	
 	}
 	
 }

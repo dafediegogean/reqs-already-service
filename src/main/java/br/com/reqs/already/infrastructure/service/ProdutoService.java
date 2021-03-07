@@ -41,5 +41,13 @@ public interface ProdutoService {
 	 * @return produtoDTO
 	 */
 	ProdutoDTO atualizar(ProdutoDTO produtoDTO);
+	
+	/**
+	 * Método excluir(Long id), recebe como parâmetro o id do produto
+	 * para remover do banco de dados.
+	 * 
+	 * @param id
+	 */
+	void excluir(Long id);
 
 }
