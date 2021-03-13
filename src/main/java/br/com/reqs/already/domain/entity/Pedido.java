@@ -1,6 +1,6 @@
 package br.com.reqs.already.domain.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,19 +27,19 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
+
+	@ManyToOne
+	@JoinColumn(name = "produto_id")
+	private Produto produto;
 	
 	@Column(name = "descricao")
 	private String descricao;
 	
-	@ManyToOne
-	@JoinColumn(name = "produto_id")
-	private Produto produto;
-
-	@Column(name = "data_compra")
-	private LocalDate dataCompra;
-	
 	@Column(name = "quantidade")
 	private Integer quantidade;
+
+	@Column(name = "data_compra")
+	private Date dataCompra;
 
 	public Long getId() {
 		return id;
@@ -47,14 +47,6 @@ public class Pedido {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 
 	public Produto getProduto() {
@@ -65,12 +57,12 @@ public class Pedido {
 		this.produto = produto;
 	}
 
-	public LocalDate getDataCompra() {
-		return dataCompra;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDataCompra(LocalDate dataCompra) {
-		this.dataCompra = dataCompra;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public Integer getQuantidade() {
@@ -79,6 +71,14 @@ public class Pedido {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public Date getDataCompra() {
+		return dataCompra;
+	}
+
+	public void setDataCompra(Date dataCompra) {
+		this.dataCompra = dataCompra;
 	}
 
 	@Override
@@ -108,8 +108,8 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", descricao=" + descricao + ", produto=" + produto + ", dataCompra=" + dataCompra
-				+ ", quantidade=" + quantidade + "]";
+		return "Pedido [id=" + id + ", produto=" + produto + ", descricao=" + descricao + ", quantidade=" + quantidade
+				+ ", dataCompra=" + dataCompra + "]";
 	}
 	
 }

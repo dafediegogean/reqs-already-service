@@ -24,30 +24,30 @@ public class PedidoDTO {
 	
 	@XmlElement(required = false)
 	private Long id;
+
+	@XmlElement(required = true)
+	private ProdutoDTO produto;
 	
 	@XmlElement(required = true)
 	private String descricao;
 	
 	@XmlElement(required = true)
-	private ProdutoDTO produtoDTO;
+	private Integer quantidade;
 	
 	@XmlJavaTypeAdapter(DateAdapter.class)
 	@XmlElement(required = true)
 	private Date dataCompra;
-	
-	@XmlElement(required = true)
-	private Integer quantidade;
 
 	public PedidoDTO() {
 		
 	}
 
-	public PedidoDTO(Long id, String descricao, ProdutoDTO produtoDTO, Date dataCompra, Integer quantidade) {
+	public PedidoDTO(Long id, ProdutoDTO produto, String descricao, Integer quantidade, Date dataCompra) {
 		this.id = id;
+		this.produto = produto;
 		this.descricao = descricao;
-		this.produtoDTO = produtoDTO;
-		this.dataCompra = dataCompra;
 		this.quantidade = quantidade;
+		this.dataCompra = dataCompra;
 	}
 
 	public Long getId() {
@@ -58,6 +58,14 @@ public class PedidoDTO {
 		this.id = id;
 	}
 
+	public ProdutoDTO getProduto() {
+		return produto;
+	}
+
+	public void setProduto(ProdutoDTO produto) {
+		this.produto = produto;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -66,12 +74,12 @@ public class PedidoDTO {
 		this.descricao = descricao;
 	}
 
-	public ProdutoDTO getProdutoDTO() {
-		return produtoDTO;
+	public Integer getQuantidade() {
+		return quantidade;
 	}
 
-	public void setProdutoDTO(ProdutoDTO produtoDTO) {
-		this.produtoDTO = produtoDTO;
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	public Date getDataCompra() {
@@ -82,12 +90,4 @@ public class PedidoDTO {
 		this.dataCompra = dataCompra;
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-	
 }

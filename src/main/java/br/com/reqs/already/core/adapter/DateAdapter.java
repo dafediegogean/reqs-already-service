@@ -15,11 +15,11 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  */
 public class DateAdapter extends XmlAdapter<String, Date> {
 
-    private String pattern = "MM/dd/yyyy";
+    private String pattern = "dd/MM/yyyy";
 
     /**
      * Método marshal(Date date), recebe como parâmetro java.util.Date,
-     * e formata a partir da pattern MM/dd/yyyy com java.text.SimpleDateFormat, 
+     * e formata a partir da pattern dd/MM/yyyy com java.text.SimpleDateFormat, 
      * a data recebida.
      * 
      * @return new SimpleDateFormat
@@ -31,7 +31,7 @@ public class DateAdapter extends XmlAdapter<String, Date> {
     /**
      * Método unmarshal(String dateString), recebe como parâmetro
      * uma data do tipo String, e formata a partir da pattern 
-     * MM/dd/yyyy com java.text.SimpleDateFormat, a data recebida.
+     * dd/MM/yyyy com java.text.SimpleDateFormat, a data recebida.
      * 
      * @return new SimpleDateFormat
      */

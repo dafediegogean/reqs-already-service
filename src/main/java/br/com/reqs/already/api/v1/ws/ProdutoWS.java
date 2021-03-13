@@ -21,7 +21,7 @@ import br.com.reqs.already.domain.model.Token;
 import br.com.reqs.already.infrastructure.service.ProdutoService;
 
 /**
- * WebService que atende a demais operations para buscar, criar, atualizar 
+ * WebService que atende as demais operations para buscar, criar, atualizar 
  * e remover ao produto.
  * 
  * @author <a href="mailto:dafediegogean@gmail.com">Diego Gean da Fé</a>
@@ -44,7 +44,7 @@ public class ProdutoWS {
 	 * @return ListaProdutoDTO
 	 * @throws AuthorizationException 
 	 */
-	@WebMethod(operationName = "getAll")
+	@WebMethod(operationName = "getProdutos")
 	@WebResult(name = "produtos")
 	public ListaProdutoDTO getAll(@WebParam(name= "token", header = true) Token token, 
 			@WebParam(name="paginacao") @XmlElement(required = false) boolean paginacao) 
@@ -90,7 +90,7 @@ public class ProdutoWS {
 	 * @param produtoDTO
 	 * @throws AuthorizationException
 	 */
-	@WebMethod(operationName = "criar")
+	@WebMethod(operationName = "criarProduto")
 	@WebResult(name = "produto")
 	public void criar(@WebParam(name = "token", header = true) Token token,
 			@WebParam(name = "produto") @XmlElement(required = true) ProdutoDTO produtoDTO) 
@@ -111,9 +111,9 @@ public class ProdutoWS {
 	 * @param id
 	 * @throws AuthorizationException
 	 */
-	@WebMethod(operationName = "remover")
-	public void remover(@WebParam(name = "token", header = true) Token token, @WebParam(name = "id") Long id) 
-			throws AuthorizationException {
+	@WebMethod(operationName = "removerProduto")
+	public void remover(@WebParam(name = "token", header = true) Token token, @WebParam(name = "id") 
+		@XmlElement(required = true) Long id) throws AuthorizationException {
 		boolean isAuthenticated = AuthorizationValidator.tokenValidator(token);
 		
 		if (!isAuthenticated) {

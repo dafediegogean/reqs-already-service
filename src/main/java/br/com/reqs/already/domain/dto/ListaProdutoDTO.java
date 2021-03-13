@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  * @author <a href="mailto:dafediegogean@gmail.com">Diego Gean da Fé</a>
  * @version
- * @since 01 de jan de 2020, 17:40:14
+ * @since 01 de jan de 2021, 17:40:14
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

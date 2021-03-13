@@ -28,7 +28,6 @@ public class ProdutoDAO extends AbstractJPA {
 	@PersistenceContext
 	private EntityManager em;
 	
-	
 	/**
 	 * Método findAll(),busca e retorna todos os produtos cadastrados 
 	 * na base de dados.
