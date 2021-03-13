@@ -1,5 +1,7 @@
 package br.com.reqs.already.infrastructure.service.impl;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -32,7 +34,20 @@ public class ProdutoServiceImpl implements ProdutoService {
 	 */
 	@Override
 	public List<ProdutoDTO> getAll() {
-		return produtoDAO.findAll();
+		
+		List<ProdutoDTO> listaProdutoDTO = new ArrayList<ProdutoDTO>();
+		
+		List<Object[]> listaGenerica = produtoDAO.findAll();
+		
+		for (Object[] object : listaGenerica) {
+			ProdutoDTO produtoDto = new ProdutoDTO();
+			produtoDto.setId(Long.valueOf(object[0].toString()));
+			produtoDto.setNome(object[1].toString());
+			produtoDto.setValor(new BigDecimal(object[2].toString()));
+			listaProdutoDTO.add(produtoDto);
+		}
+		
+		return listaProdutoDTO;
 	}
 	
 	/**
