@@ -109,7 +109,6 @@ public class ProdutoWS {
 	 * 
 	 * @param token
 	 * @param produtoDTO
-	 * @param id
 	 * @throws AuthorizationException
 	 */
 	@WebMethod(operationName = "atualizarProduto")
