@@ -104,6 +104,28 @@ public class ProdutoWS {
 	}
 	
 	/**
+	 * Endpoint atualizar, recebe como parâmetro o token no header, ProdutoDTO e o id. 
+	 * Atualiza um registro  já existente no banco de dados.
+	 * 
+	 * @param token
+	 * @param produtoDTO
+	 * @param id
+	 * @throws AuthorizationException
+	 */
+	@WebMethod(operationName = "atualizarProduto")
+	@WebResult(name = "produto")
+	public void atualizar(@WebParam(name = "token", header = true) Token token,
+			@WebParam(name = "produto") @XmlElement(required = true) ProdutoDTO produtoDTO)
+					throws AuthorizationException {
+		boolean isAuthenticated = AuthorizationValidator.tokenValidator(token);
+		
+		if (!isAuthenticated) {
+			throw new AuthorizationException("Token inválido!");
+		}
+		produtoService.atualizar(produtoDTO);
+	}
+	
+	/**
 	 * Endpoint remover, recebe como parâmetro o token no header, e o id do produto,
 	 * para remover da base de dados.
 	 * 

@@ -94,8 +94,8 @@ public class ProdutoServiceImpl implements ProdutoService {
 	public ProdutoDTO atualizar(ProdutoDTO produtoDTO) {
 		Produto produto = new Produto();
 		produto.setId(produtoDTO.getId());
-		produto.setNome(produto.getNome());
-		produto.setValor(produto.getValor());
+		produto.setNome(produtoDTO.getNome());
+		produto.setValor(produtoDTO.getValor());
 		
 		Produto produtoSalvo = produtoDAO.atualizar(produto);
 		produtoDTO.setNome(produtoSalvo.getNome());
