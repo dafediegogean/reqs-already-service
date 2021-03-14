@@ -102,6 +102,27 @@ public class PedidoWS {
 	}
 	
 	/**
+	 * Endpoint atualizar, recebe como parâmetro o token no header, PedidoDTO. 
+	 * Atualiza um registro já existente no banco de dados.
+	 * 
+	 * @param token
+	 * @param pedidoDTO
+	 * @throws AuthorizationException
+	 */
+	@WebMethod(operationName = "atualizarPedido")
+	@WebResult(name = "pedido")
+	public void atualizar(@WebParam(name = "token", header = true) Token token,
+			@WebParam(name = "pedido") @XmlElement(required = true) PedidoDTO pedidoDTO)
+					throws AuthorizationException {
+		boolean isAuthenticated = AuthorizationValidator.tokenValidator(token);
+		
+		if (!isAuthenticated) {
+			throw new AuthorizationException("Token inválido!");
+		}
+		pedidoService.atualizar(pedidoDTO);
+	}
+	
+	/**
 	 * Endpoint remover, recebe como parâmetro o token no header, e o id do pedido,
 	 * para remover da base de dados.
 	 * 

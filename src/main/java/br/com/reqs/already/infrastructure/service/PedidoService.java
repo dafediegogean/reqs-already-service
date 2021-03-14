@@ -40,5 +40,15 @@ public interface PedidoService {
 	 * @param id
 	 */
 	void excluir(Long id);
+	
+	/**
+	 * Método atualizar(PedidoDTO pedidoDTO), recebe como parâmetro o
+	 * objeto do tipo, PedidoDTO, e faz o merge do objeto caso já exista
+	 * em banco de dados.
+	 * 
+	 * @param pedidoDTO
+	 * @return pedidoDTO
+	 */
+	void atualizar(PedidoDTO pedidoDTO);
 
 }

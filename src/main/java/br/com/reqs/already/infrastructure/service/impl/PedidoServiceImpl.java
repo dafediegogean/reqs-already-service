@@ -110,4 +110,21 @@ public class PedidoServiceImpl implements PedidoService {
 		pedidoDAO.excluir(id);
 	}
 
+	/**
+	 * Método atualizar(PedidoDTO pedidoDTO), recebe como parâmetro o
+	 * objeto do tipo, PedidoDTO, e faz o merge do objeto caso já exista
+	 * em banco de dados.
+	 * 
+	 * @param pedidoDTO
+	 * @return pedidoDTO
+	 */
+	@Override
+	public void atualizar(PedidoDTO pedidoDTO) {
+		Pedido pedido = new Pedido();
+		pedido.setId(pedidoDTO.getId());
+		pedido.setDescricao(pedidoDTO.getDescricao());
+		pedido.setQuantidade(pedidoDTO.getQuantidade());
+		pedidoDAO.atualizar(pedido);
+	}
+
 }

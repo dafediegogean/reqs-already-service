@@ -65,4 +65,22 @@ public class PedidoDAO extends AbstractJPA {
 		em.remove(pedido);
 	}
 	
+	/**
+	 * Método atualizar(PedidoDTO pedidoDTO), recebe como parâmetro o
+	 * objeto do tipo, PedidoDTO, e faz o merge do objeto caso já exista
+	 * em banco de dados.
+	 * 
+	 * @param pedidoDTO
+	 * @return pedidoDTO
+	 */
+	public void atualizar(Pedido pedido) {
+		Pedido pedidoSalvo = em.find(Pedido.class, pedido.getId());
+		Produto produto = new Produto();
+		produto.setId(pedidoSalvo.getId());
+		pedido.setProduto(new Produto());
+		pedido.setProduto(produto);
+		pedido.setDataCompra(pedidoSalvo.getDataCompra());
+		em.merge(pedido);
+	}
+	
 }

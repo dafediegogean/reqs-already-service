@@ -33,7 +33,7 @@ public interface ProdutoService {
 	void salvar(ProdutoDTO produtoDTO);
 	
 	/**
-	 * Método atualizar(ProdutoDTO produtoDTO, Long id), recebe como parâmetro o
+	 * Método atualizar(ProdutoDTO produtoDTO), recebe como parâmetro o
 	 * objeto do tipo ProdutoDTO, e faz o merge do objeto caso já exista
 	 * em banco de dados.
 	 * 

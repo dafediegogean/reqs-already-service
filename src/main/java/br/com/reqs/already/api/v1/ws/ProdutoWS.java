@@ -104,8 +104,8 @@ public class ProdutoWS {
 	}
 	
 	/**
-	 * Endpoint atualizar, recebe como parâmetro o token no header, ProdutoDTO e o id. 
-	 * Atualiza um registro  já existente no banco de dados.
+	 * Endpoint atualizar, recebe como parâmetro o token no header, ProdutoDTO. 
+	 * Atualiza um registro já existente no banco de dados.
 	 * 
 	 * @param token
 	 * @param produtoDTO
