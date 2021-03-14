@@ -6,31 +6,35 @@
 
       <xs:element name="AuthorizationFault" nillable="true" type="xs:string"/>
 
-      <xs:element name="criar" type="tns:criar"/>
+      <xs:element name="atualizarProduto" type="tns:atualizarProduto"/>
 
-      <xs:element name="criarResponse" type="tns:criarResponse"/>
+      <xs:element name="atualizarProdutoResponse" type="tns:atualizarProdutoResponse"/>
 
-      <xs:element name="getAll" type="tns:getAll"/>
+      <xs:element name="criarProduto" type="tns:criarProduto"/>
 
-      <xs:element name="getAllResponse" type="tns:getAllResponse"/>
+      <xs:element name="criarProdutoResponse" type="tns:criarProdutoResponse"/>
 
       <xs:element name="getProdutoById" type="tns:getProdutoById"/>
 
       <xs:element name="getProdutoByIdResponse" type="tns:getProdutoByIdResponse"/>
 
+      <xs:element name="getProdutos" type="tns:getProdutos"/>
+
+      <xs:element name="getProdutosResponse" type="tns:getProdutosResponse"/>
+
       <xs:element name="listaProdutoDTO" type="tns:listaProdutoDTO"/>
 
       <xs:element name="produtoDTO" type="tns:produtoDTO"/>
 
-      <xs:element name="remover" type="tns:remover"/>
+      <xs:element name="removerProduto" type="tns:removerProduto"/>
 
-      <xs:element name="removerResponse" type="tns:removerResponse"/>
+      <xs:element name="removerProdutoResponse" type="tns:removerProdutoResponse"/>
 
       <xs:element name="token" nillable="true" type="tns:token"/>
 
-      <xs:complexType name="remover">
+      <xs:complexType name="removerProduto">
         <xs:sequence>
-          <xs:element name="id" type="xs:long" minOccurs="0"/>
+          <xs:element name="id" type="xs:long"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -40,17 +44,17 @@
         </xs:sequence>
       </xs:complexType>
 
-      <xs:complexType name="removerResponse">
+      <xs:complexType name="removerProdutoResponse">
         <xs:sequence/>
       </xs:complexType>
 
-      <xs:complexType name="getAll">
+      <xs:complexType name="getProdutos">
         <xs:sequence>
           <xs:element name="paginacao" type="xs:boolean"/>
         </xs:sequence>
       </xs:complexType>
 
-      <xs:complexType name="getAllResponse">
+      <xs:complexType name="getProdutosResponse">
         <xs:sequence>
           <xs:element name="produtos" type="tns:listaProdutoDTO" minOccurs="0"/>
         </xs:sequence>
@@ -70,13 +74,23 @@
         </xs:sequence>
       </xs:complexType>
 
-      <xs:complexType name="criar">
+      <xs:complexType name="criarProduto">
         <xs:sequence>
           <xs:element name="produto" type="tns:produtoDTO"/>
         </xs:sequence>
       </xs:complexType>
 
-      <xs:complexType name="criarResponse">
+      <xs:complexType name="criarProdutoResponse">
+        <xs:sequence/>
+      </xs:complexType>
+
+      <xs:complexType name="atualizarProduto">
+        <xs:sequence>
+          <xs:element name="produto" type="tns:produtoDTO"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="atualizarProdutoResponse">
         <xs:sequence/>
       </xs:complexType>
 
@@ -93,23 +107,6 @@
       </xs:complexType>
 </xs:schema>
   </types>
-  <message name="getAll">
-    <part name="parameters" element="tns:getAll"/>
-    <part name="token" element="tns:token"/>
-  </message>
-  <message name="getAllResponse">
-    <part name="result" element="tns:getAllResponse"/>
-  </message>
-  <message name="AuthorizationException">
-    <part name="fault" element="tns:AuthorizationFault"/>
-  </message>
-  <message name="remover">
-    <part name="parameters" element="tns:remover"/>
-    <part name="token" element="tns:token"/>
-  </message>
-  <message name="removerResponse">
-    <part name="result" element="tns:removerResponse"/>
-  </message>
   <message name="getProdutoById">
     <part name="parameters" element="tns:getProdutoById"/>
     <part name="token" element="tns:token"/>
@@ -117,63 +114,66 @@
   <message name="getProdutoByIdResponse">
     <part name="result" element="tns:getProdutoByIdResponse"/>
   </message>
-  <message name="criar">
-    <part name="parameters" element="tns:criar"/>
+  <message name="AuthorizationException">
+    <part name="fault" element="tns:AuthorizationFault"/>
+  </message>
+  <message name="atualizarProduto">
+    <part name="parameters" element="tns:atualizarProduto"/>
     <part name="token" element="tns:token"/>
   </message>
-  <message name="criarResponse">
-    <part name="result" element="tns:criarResponse"/>
+  <message name="atualizarProdutoResponse">
+    <part name="result" element="tns:atualizarProdutoResponse"/>
+  </message>
+  <message name="removerProduto">
+    <part name="parameters" element="tns:removerProduto"/>
+    <part name="token" element="tns:token"/>
+  </message>
+  <message name="removerProdutoResponse">
+    <part name="result" element="tns:removerProdutoResponse"/>
+  </message>
+  <message name="getProdutos">
+    <part name="parameters" element="tns:getProdutos"/>
+    <part name="token" element="tns:token"/>
+  </message>
+  <message name="getProdutosResponse">
+    <part name="result" element="tns:getProdutosResponse"/>
+  </message>
+  <message name="criarProduto">
+    <part name="parameters" element="tns:criarProduto"/>
+    <part name="token" element="tns:token"/>
+  </message>
+  <message name="criarProdutoResponse">
+    <part name="result" element="tns:criarProdutoResponse"/>
   </message>
   <portType name="ProdutoWS">
-    <operation name="getAll" parameterOrder="parameters token">
-      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getAllRequest" message="tns:getAll"/>
-      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getAllResponse" message="tns:getAllResponse"/>
-      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getAll/Fault/AuthorizationException"/>
-    </operation>
-    <operation name="remover" parameterOrder="parameters token">
-      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/removerRequest" message="tns:remover"/>
-      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/removerResponse" message="tns:removerResponse"/>
-      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/remover/Fault/AuthorizationException"/>
-    </operation>
     <operation name="getProdutoById" parameterOrder="parameters token">
       <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutoByIdRequest" message="tns:getProdutoById"/>
       <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutoByIdResponse" message="tns:getProdutoByIdResponse"/>
       <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutoById/Fault/AuthorizationException"/>
     </operation>
-    <operation name="criar" parameterOrder="parameters token">
-      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/criarRequest" message="tns:criar"/>
-      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/criarResponse" message="tns:criarResponse"/>
-      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/criar/Fault/AuthorizationException"/>
+    <operation name="atualizarProduto" parameterOrder="parameters token">
+      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/atualizarProdutoRequest" message="tns:atualizarProduto"/>
+      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/atualizarProdutoResponse" message="tns:atualizarProdutoResponse"/>
+      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/atualizarProduto/Fault/AuthorizationException"/>
+    </operation>
+    <operation name="removerProduto" parameterOrder="parameters token">
+      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/removerProdutoRequest" message="tns:removerProduto"/>
+      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/removerProdutoResponse" message="tns:removerProdutoResponse"/>
+      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/removerProduto/Fault/AuthorizationException"/>
+    </operation>
+    <operation name="getProdutos" parameterOrder="parameters token">
+      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutosRequest" message="tns:getProdutos"/>
+      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutosResponse" message="tns:getProdutosResponse"/>
+      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/getProdutos/Fault/AuthorizationException"/>
+    </operation>
+    <operation name="criarProduto" parameterOrder="parameters token">
+      <input wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/criarProdutoRequest" message="tns:criarProduto"/>
+      <output wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/criarProdutoResponse" message="tns:criarProdutoResponse"/>
+      <fault message="tns:AuthorizationException" name="AuthorizationException" wsam:Action="http://ws.v1.api.already.reqs.com.br/ProdutoWS/criarProduto/Fault/AuthorizationException"/>
     </operation>
   </portType>
   <binding name="ProdutoWSPortBinding" type="tns:ProdutoWS">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-    <operation name="getAll">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal" parts="parameters"/>
-        <soap:header message="tns:getAll" part="token" use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-      <fault name="AuthorizationException">
-        <soap:fault name="AuthorizationException" use="literal"/>
-      </fault>
-    </operation>
-    <operation name="remover">
-      <soap:operation soapAction=""/>
-      <input>
-        <soap:body use="literal" parts="parameters"/>
-        <soap:header message="tns:remover" part="token" use="literal"/>
-      </input>
-      <output>
-        <soap:body use="literal"/>
-      </output>
-      <fault name="AuthorizationException">
-        <soap:fault name="AuthorizationException" use="literal"/>
-      </fault>
-    </operation>
     <operation name="getProdutoById">
       <soap:operation soapAction=""/>
       <input>
@@ -187,11 +187,50 @@
         <soap:fault name="AuthorizationException" use="literal"/>
       </fault>
     </operation>
-    <operation name="criar">
+    <operation name="atualizarProduto">
       <soap:operation soapAction=""/>
       <input>
         <soap:body use="literal" parts="parameters"/>
-        <soap:header message="tns:criar" part="token" use="literal"/>
+        <soap:header message="tns:atualizarProduto" part="token" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="AuthorizationException">
+        <soap:fault name="AuthorizationException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="removerProduto">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal" parts="parameters"/>
+        <soap:header message="tns:removerProduto" part="token" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="AuthorizationException">
+        <soap:fault name="AuthorizationException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="getProdutos">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal" parts="parameters"/>
+        <soap:header message="tns:getProdutos" part="token" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="AuthorizationException">
+        <soap:fault name="AuthorizationException" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="criarProduto">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal" parts="parameters"/>
+        <soap:header message="tns:criarProduto" part="token" use="literal"/>
       </input>
       <output>
         <soap:body use="literal"/>
