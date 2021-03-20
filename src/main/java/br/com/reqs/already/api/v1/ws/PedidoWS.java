@@ -17,7 +17,6 @@ import br.com.reqs.already.core.exception.AuthorizationException;
 import br.com.reqs.already.core.validator.AuthorizationValidator;
 import br.com.reqs.already.domain.dto.ListaPedidoDTO;
 import br.com.reqs.already.domain.dto.PedidoDTO;
-import br.com.reqs.already.domain.dto.ProdutoDTO;
 import br.com.reqs.already.domain.model.Token;
 import br.com.reqs.already.infrastructure.service.PedidoService;
 
@@ -37,7 +36,7 @@ public class PedidoWS {
 	private PedidoService pedidoService;
 	
 	/**
-	 * Endpoint getAll, recebe como parâmetro o token no header, e um booleano, a 
+	 * Endpoint getPedidos, recebe como parâmetro o token no header, e um booleano, a 
 	 * paginacao. Lista todos os pedidos cadastrados.
 	 * 
 	 * @param token
