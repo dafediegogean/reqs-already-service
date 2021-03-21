@@ -76,7 +76,7 @@ public class PedidoDAO extends AbstractJPA {
 	public void atualizar(Pedido pedido) {
 		Pedido pedidoSalvo = em.find(Pedido.class, pedido.getId());
 		Produto produto = new Produto();
-		produto.setId(pedidoSalvo.getId());
+		produto.setId(pedidoSalvo.getProduto().getId());
 		pedido.setProduto(new Produto());
 		pedido.setProduto(produto);
 		pedido.setDataCompra(pedidoSalvo.getDataCompra());
